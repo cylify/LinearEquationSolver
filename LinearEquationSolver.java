@@ -1,20 +1,40 @@
 package LinearEquationSolver;
 
-import java.beans.Expression;
 import java.util.*;
 
-class LinearEquationSolver {
-    private int operatorCount = 0;
+class LinearEquation {
+    private int equalsIndex;
+    private int operatorCount;
+    private ArrayList<String> expression = new ArrayList<String>();
 
 
-    public ArrayList<String> getExpression(String expr) {
-        ArrayList<String> expression = new ArrayList<String>();
-        for(String items : expr.split(" ")) {
-            expression.add(items);
-        }
-        return expression;
+    public int getOperatorCount() {
+        return operatorCount;
     }
 
 
+    public void setOperatorCount(int operatorCount) {
+        this.operatorCount = operatorCount;
+    }
 
+    public void getExpression(String expr) {
+        for(String items : expr.split(" ")) {
+            this.expression.add(items);
+        }
+    }
+
+    public void getEqualsIndex() {
+        for(int i = 0; i < this.expression.size(); i++) {
+            if(expression.get(i).contains("=")) {
+                this.equalsIndex = expression.indexOf("=");
+            }
+        }
+    }
+
+    
+
+
+    public static void main(String[] args) {
+        
+    }
 }
