@@ -2,8 +2,6 @@ package LinearEquationSolver;
 
 import java.util.*;
 
-import javax.print.attribute.standard.NumberUpSupported;
-
 class LinearEquation {
     private int equalsIndex;
     private int operatorCount;
