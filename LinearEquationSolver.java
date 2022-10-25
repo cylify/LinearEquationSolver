@@ -2,6 +2,8 @@ package LinearEquationSolver;
 
 import java.util.*;
 
+import javax.print.attribute.standard.NumberUpSupported;
+
 class LinearEquation {
     private int equalsIndex;
     private int operatorCount;
@@ -9,6 +11,7 @@ class LinearEquation {
     private ArrayList<String> operators = new ArrayList<String>();
     private ArrayList<String> rightSide = new ArrayList<String>();
     private ArrayList<String> leftSide = new ArrayList<String>();
+    private ArrayList<String> coeffandnums = new ArrayList<String>();
     private Fraction finalAnswer;
 
 
@@ -29,15 +32,20 @@ class LinearEquation {
         }
 
         for(int i = 0; i < this.leftSide.size(); i++) {
-            if(this.leftSide.get(i).matches("-{0,1}[0-9]+\\(x")) {
+            if(this.leftSide.get(i).matches("-{0,1}[0-9]+\\(-{0,1}[1-9]+x")) {
+                this.operatorCount += 2;
+                this.operators.add("/");
+                this.operators.add("/");
+            } else if(this.leftSide.get(i).matches("-{0,1}[0-9]+\\(x")) {
                 this.operatorCount++;
                 this.operators.add("/");
+                this.leftSide.get(i).replace("\\(x", "");
             } else if(this.leftSide.get(i).matches("-{0,1}[0-9]+x")) {
                 this.operatorCount++;
                 this.operators.add("/");
             } else if(this.leftSide.get(i).contains("+")) {
                 this.operatorCount++;
-                this.operators.add("-");
+                this.operators.add("+");
             } else if(this.leftSide.get(i).contains("-")) {
                 this.operatorCount++;
                 this.operators.add("+");
@@ -46,7 +54,10 @@ class LinearEquation {
                 this.operators.add("*");
             } 
         }
+
+        System.out.print(leftSide + " " + rightSide + " " + operatorCount + " " + operators);
     }
+
 
     
 
