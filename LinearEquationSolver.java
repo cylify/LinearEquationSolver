@@ -29,6 +29,12 @@ class LinearEquation {
             this.rightSide.add(this.expression.get(i));
         }
 
+        getCountAndOperators(leftSide);
+
+        System.out.print(leftSide + " " + rightSide + " " + operatorCount + " " + operators);
+    }
+
+    public void getCountAndOperators(ArrayList<String> leftSide) {
         for(int i = 0; i < this.leftSide.size(); i++) {
             if(this.leftSide.get(i).matches("-{0,1}[0-9]+\\(-{0,1}[1-9]+x")) {
                 this.operatorCount += 2;
@@ -43,7 +49,7 @@ class LinearEquation {
                 this.operators.add("/");
             } else if(this.leftSide.get(i).contains("+")) {
                 this.operatorCount++;
-                this.operators.add("+");
+                this.operators.add("-");
             } else if(this.leftSide.get(i).contains("-")) {
                 this.operatorCount++;
                 this.operators.add("+");
@@ -55,12 +61,10 @@ class LinearEquation {
                 this.operators.add("*");
             } 
         }
+    }
 
-        for(int i = 0; i < this.leftSide.size(); i++) {
-            if(this.leftSide.get(i).matches(""));
-        }
+    public void getNums() {
 
-        System.out.print(leftSide + " " + rightSide + " " + operatorCount + " " + operators);
     }
 
 
