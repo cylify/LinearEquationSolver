@@ -52,7 +52,14 @@ class LinearEquation {
             } else if(this.leftSide.get(i).matches("-{0,1}[0-9]+/x")) {
                 this.operatorCount++;
                 this.operators.add("*");
+            } else if(this.leftSide.get(i).matches("-{0,1}[0-9]+\\)\\/x")) {
+                this.operatorCount++;
+                this.operators.add("*");
             } 
+        }
+
+        for(int i = 0; i < this.leftSide.size(); i++) {
+            if(this.leftSide.get(i).matches(""));
         }
 
         System.out.print(leftSide + " " + rightSide + " " + operatorCount + " " + operators);
