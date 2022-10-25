@@ -4,6 +4,10 @@ class ImproperFraction {
     private int num;
     private int den;
 
+
+    /**
+     * @param f
+     */
     public ImproperFraction(Fraction f) {
 
         if (f.getWhole() == 0) {
@@ -17,14 +21,26 @@ class ImproperFraction {
 
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getNum() {
         return num;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getDen() {
         return den;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         return String.format("%d/%d", num, den);
     }

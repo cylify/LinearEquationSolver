@@ -225,30 +225,60 @@ class Fraction {
     }
 
 
+    
+    /** 
+     * @return int
+     */
     public int getWhole() {
         return whole;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getNum() {
         return num;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getDen() {
         return den;
     }
 
+    
+    /** 
+     * @param newWholeVal
+     */
     public void setWhole(int newWholeVal) {
         whole = newWholeVal;
     }
 
+    
+    /** 
+     * @param newNumVal
+     */
     public void setNum(int newNumVal) {
         num = newNumVal;
     }
 
+    
+    /** 
+     * @param newDenVal
+     */
     public void setDen(int newDenVal) {
         whole = newDenVal;
     }
 
+    
+    /** 
+     * @param a
+     * @param b
+     * @return int
+     */
     public static int gcd(int a, int b) {
         if (a == 1 || b == 1 || a == 0 || b == 0) {
             return 1;
@@ -263,6 +293,13 @@ class Fraction {
 
     }
 
+    
+    /** 
+     * @param whole
+     * @param num
+     * @param den
+     * @return int
+     */
     public static int getSign(int whole, int num, int den) {
         int neg = 0;
         if (whole < 0) {
@@ -281,6 +318,10 @@ class Fraction {
         }
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         String exp = "";
         if (num == 0) {
@@ -293,10 +334,19 @@ class Fraction {
         return exp;
     }
 
+    
+    /** 
+     * @return Fraction
+     */
     public Fraction clone() {
         return new Fraction(whole, num, den);
     }
 
+    
+    /** 
+     * @param other
+     * @return Fraction
+     */
     public Fraction add(Fraction other) {
         ImproperFraction f = new ImproperFraction(this);
         ImproperFraction g = new ImproperFraction(other);
@@ -309,6 +359,11 @@ class Fraction {
         return new Fraction(newNum, newDen);
     }
 
+    
+    /** 
+     * @param other
+     * @return Fraction
+     */
     public Fraction subtract(Fraction other) {
         Fraction c = other.clone();
         if (other.whole == 0) {
@@ -320,6 +375,11 @@ class Fraction {
 
     }
 
+    
+    /** 
+     * @param other
+     * @return Fraction
+     */
     public Fraction multiply(Fraction other){
         ImproperFraction f = new ImproperFraction(this);
         ImproperFraction g = new ImproperFraction(other);
@@ -332,6 +392,11 @@ class Fraction {
         return new Fraction(newNum, newDen);
     }
 
+    
+    /** 
+     * @param other
+     * @return Fraction
+     */
     public Fraction divide(Fraction other){
         ImproperFraction g = new ImproperFraction(other);
         int c = g.getNum();
@@ -339,6 +404,10 @@ class Fraction {
         return this.multiply(new Fraction(d, c));
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
 
         Fraction g = new Fraction(15, -6);
