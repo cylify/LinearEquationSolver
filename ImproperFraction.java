@@ -1,5 +1,3 @@
-package LinearEquationSolver;
-
 class ImproperFraction {
     private int num;
     private int den;
