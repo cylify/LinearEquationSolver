@@ -40,4 +40,5 @@ class ImproperFraction {
     public String toString() {
         return String.format("%d/%d", num, den);
     }
+    
 }
