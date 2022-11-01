@@ -1,3 +1,6 @@
+package LinearEquationSolver;
+
+
 import java.util.*;
 
 class Fraction {
@@ -219,30 +222,6 @@ class Fraction {
             throw new IllegalArgumentException("Not in the correct format");
         }
         
-    }
-
-    public static Fraction valueOf(String expr) {
-        String mixedFrac = "((-{0,1}[1-9][0-9]*)|-{0,1}0) (([1-9][0-9]*)|-{0,1}0)/[1-9][0-9]*";
-        String frac = "((-{0,1}[1-9][0-9]*)|-{0,1}0)/-{0,1}[1-9][0-9]*";
-        String wholeFrac = "(-{0,1}[1-9][0-9]*)|-{0,1}0";
-        if (expr.matches(mixedFrac)) {
-            int indOfSpace = expr.indexOf(" ");
-            int indOfSlash = expr.indexOf("/");
-            int whole = Integer.valueOf(expr.substring(0, indOfSpace));
-            int num = Integer.valueOf(expr.substring(indOfSpace + 1, indOfSlash));
-            int den = Integer.valueOf(expr.substring(indOfSlash + 1));
-            return new Fraction(whole, num, den);  
-        } else if (expr.matches(frac)) {
-            int indOfSlash = expr.indexOf("/");
-            int num = Integer.valueOf(expr.substring(0, indOfSlash));
-            int den = Integer.valueOf(expr.substring(indOfSlash + 1));
-            return new Fraction(num, den);  
-        } else if (expr.matches(wholeFrac)) {
-            int whole = Integer.valueOf(expr);
-            return new Fraction(whole);
-        } else{
-            throw new IllegalArgumentException("Expression does not represent a fraction");
-        }
     }
 
 
