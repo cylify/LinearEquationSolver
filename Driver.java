@@ -42,7 +42,6 @@ class Driver {
             String type = in.nextLine();
             Quiz q = new Quiz(type);
             System.out.print("Solve for the unknown in this expression\nx = ");
-            // in.nextLine();
             String answer = in.nextLine();
             boolean flag = Quiz.CheckAnswer(Quiz.question, answer);
             if(flag) {
