@@ -18,16 +18,16 @@ class LinearEquation {
         if(checkForX) {
             if(flagForXdivisor) {
                 String ans = SolveForXDivisor(leftSide, rightSide);
-                System.out.println(ans);
+                System.out.println("x = " + ans);
             } else if(flagForDivisor) {
                 String ans = SolveForDivisor(leftSide, flagForDistributor);
-                System.out.println(ans);
+                System.out.println("x = " + ans);
             } else if(flagForDistributor) {
                 String ans = SolveForDistribution(leftSide, rightSide);
-                System.out.println(ans);
+                System.out.println("x = " + ans);
             } else {
                 String ans = SolveForBase(leftSide, this.rightSide);
-                System.out.println(ans);
+                System.out.println("x = " + ans);
             }
         }
     }
@@ -38,7 +38,7 @@ class LinearEquation {
         String switchedrright = GetRightSide(switched);
         ArrayList<String> ArrayOfswitchedRight = ConvertToArray(switchedrright);
         ArrayList<String> ArrayOfswitchedLeft = ConvertToArray(switchedleft);
-        String finalval = "x = " + Evaluate(ArrayOfswitchedLeft, ArrayOfswitchedRight).toString();
+        String finalval = Evaluate(ArrayOfswitchedLeft, ArrayOfswitchedRight).toString();
         return finalval;
     }
 
@@ -60,7 +60,7 @@ class LinearEquation {
         ArrayList<String> numsInBracket = ConvertToArray(GetNumbersInBracket(leftSide));
         ArrayList<String> finalLeft = Distribute(numsInBracket, distributor);
         Fraction finalVal = Evaluate(finalLeft, ConvertToArray(rightSide));
-        String finalAns = "x = " + finalVal.toString();
+        String finalAns = finalVal.toString();
         return finalAns;
     }
 
@@ -68,7 +68,7 @@ class LinearEquation {
         ArrayList<String> right = ConvertToArray(rightSide);
         ArrayList<String> left = ConvertToArray(leftSide);
         Fraction finalval = Evaluate(left, right);
-        String finalans = "x = " + finalval.toString();
+        String finalans = finalval.toString();
         return finalans;
     }
 
