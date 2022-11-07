@@ -24,7 +24,7 @@ class Quiz {
 
     public int GetRandomInt() {
         Random rand = new Random();
-        int num = rand.nextInt(1, 20);
+        int num = rand.nextInt(2, 20);
         return num;
     }
 
@@ -79,7 +79,7 @@ class Quiz {
                             (GetRandomNumber() > 50 ? "" : "-") + "%d/x " + (GetRandomNumber() > 50 ? "+" : "-") + " " + (GetRandomNumber() > 50 ? "" : "-") + 
                             "%d/%d = %d/%d"};
 
-        return String.format(multistep[(new Random()).nextInt(multistep.length)], GetRandomInt(), GetRandomInt(), GetRandomInt(), GetRandomInt(), GetRandomInt());
+        return String.format(multistep[(new Random()).nextInt(multistep.length)], GetRandomInt(), GetRandomInt(), GetRandomInt(), GetRandomInt(), GetRandomInt(), GetRandomInt(), GetRandomInt());
     }
 
     public static boolean CheckAnswer(String question, String answer) {
