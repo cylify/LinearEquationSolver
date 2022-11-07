@@ -35,26 +35,45 @@ class Quiz {
     }
     
     public String OneStepQuestions() {
-        String[] onestep = {"%dx = %d", "x/%d = %d", "x " + (GetRandomNumber() > 50 ? "+" : "-") + " %d = %d"};
+        String[] onestep = {(GetRandomNumber() > 50 ? "" : "-") + "%dx = " + (GetRandomNumber() > 50 ? "" : "-") +"%d", 
+        (GetRandomNumber() > 50 ? "" : "-") + "x/" + (GetRandomNumber() > 50 ? "" : "-") + "%d = " + 
+        (GetRandomNumber() > 50 ? "" : "-") + "%d",
+        (GetRandomNumber() > 50 ? "" : "-") + "x " + (GetRandomNumber() > 50 ? "+" : "-") + " " + (GetRandomNumber() > 50 ? "" : "-") + 
+        "%d = " + (GetRandomNumber() > 50 ? "" : "-") + "%d"};
         return String.format(onestep[(new Random()).nextInt(onestep.length)], GetRandomInt(), GetRandomInt());
     }
 
     public String TwoStepQuestions() {
-        String[] twostep = {"%dx " + (GetRandomNumber() > 50 ? "+" : "-") + " %d = %d", 
-                            "x/%d " + (GetRandomNumber() > 50 ? "+" : "-") + " %d = %d",
-                            "(x " + (GetRandomNumber() > 50 ? "+" : "-") + " %d)/%d = %d",
-                            "%d(x " + (GetRandomNumber() > 50 ? "+" : "-") + " %d) = %d",
+        String[] twostep = {(GetRandomNumber() > 50 ? "" : "-") + "%dx " + (GetRandomNumber() > 50 ? "+" : "-") + " " + 
+                            (GetRandomNumber() > 50 ? "" : "-") + "%d = " + (GetRandomNumber() > 50 ? "" : "-") + "%d", 
+                            (GetRandomNumber() > 50 ? "" : "-") + "x/" + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "%d " + (GetRandomNumber() > 50 ? "+" : "-") + " " + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "%d = " + (GetRandomNumber() > 50 ? "" : "-") + "%d",
+                            (GetRandomNumber() > 50 ? "" : "-") + "(" + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "x " + (GetRandomNumber() > 50 ? "+" : "-") + " "  + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "%d)/" + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "%d = " + (GetRandomNumber() > 50 ? "" : "-") + "%d",
+                            (GetRandomNumber() > 50 ? "" : "-") + "%d(" + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "x " + (GetRandomNumber() > 50 ? "+" : "-") + " " + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "%d) = " + (GetRandomNumber() > 50 ? "" : "-") +"%d",
                             "%d/x = %d"};
         return String.format(twostep[(new Random()).nextInt(twostep.length)], GetRandomInt(), GetRandomInt(), GetRandomInt());
     }
 
     public String MultiStepQuestions() {
-        String[] multistep = {"%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
-                            " %d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
-                            " %d = %d/%d", "%d(%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
-                            " %d)/%d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
-                            " %d/%d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
-                            " %d/%d = %d/%d", "%d/x = %d/%d", "%d/%dx + %d/%s = %d/%d", "%d/x + %d/%d = %d/%d"};
+        String[] multistep = {(GetRandomNumber() > 50 ? "" : "-") + "%d/" + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+                            " " + (GetRandomNumber() > 50 ? "" : "-") + "%d = " + (GetRandomNumber() > 50 ? "" : "-") + "%d", 
+                            (GetRandomNumber() > 50 ? "" : "-") + "%d/" + (GetRandomNumber() > 50 ? "" : "-") + "%dx " + 
+                            (GetRandomNumber() > 50 ? "+" : "-") + 
+                            " " + (GetRandomNumber() > 50 ? "" : "-") + "%d = " + (GetRandomNumber() > 50 ? "" : "-") + "%d/" + 
+                            (GetRandomNumber() > 50 ? "" : "-") + "%d", (GetRandomNumber() > 50 ? "" : "-") + "%d(" + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+                            " " + (GetRandomNumber() > 50 ? "" : "-") + "%d)/" + (GetRandomNumber() > 50 ? "" : "-") + "%d = %d", 
+                            (GetRandomNumber() > 50 ? "" : "-") + "%d/" + (GetRandomNumber() > 50 ? "" : "-") + "%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+                            " " + (GetRandomNumber() > 50 ? "" : "-") + "%d/" + (GetRandomNumber() > 50 ? "" : "-") + "%d = " + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "%d", (GetRandomNumber() > 50 ? "" : "-") + "%d/" + (GetRandomNumber() > 50 ? "" : "-") + "%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+                            " %d/%d = %d/%d", "%d/x = %d/%d", "%d/%dx + %d/%d = %d/%d", "%d/x + %d/%d = %d/%d"};
 
         return String.format(multistep[(new Random()).nextInt(multistep.length)], GetRandomInt(), GetRandomInt(), GetRandomInt(), GetRandomInt(), GetRandomInt());
     }
