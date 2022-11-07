@@ -4,7 +4,7 @@ import java.util.stream.*;
 class LinearEquation {
     private String rightSide;
     private String leftSide;
-    
+    static String answer;
 
     public LinearEquation(String expr) throws IllegalArgumentException {
         this.rightSide = GetRightSide(expr);
@@ -18,15 +18,19 @@ class LinearEquation {
         if(checkForX) {
             if(flagForXdivisor) {
                 String ans = SolveForXDivisor(leftSide, rightSide);
+                answer = SolveForXDivisor(leftSide, rightSide);
                 System.out.println("x = " + ans);
             } else if(flagForDivisor) {
                 String ans = SolveForDivisor(leftSide, flagForDistributor);
+                answer = SolveForDivisor(leftSide, flagForDistributor);
                 System.out.println("x = " + ans);
             } else if(flagForDistributor) {
                 String ans = SolveForDistribution(leftSide, rightSide);
+                answer = SolveForDistribution(leftSide, rightSide);
                 System.out.println("x = " + ans);
             } else {
                 String ans = SolveForBase(leftSide, this.rightSide);
+                answer = SolveForBase(leftSide, this.rightSide);
                 System.out.println("x = " + ans);
             }
         }
@@ -35,22 +39,33 @@ class LinearEquation {
     public String SolveForXDivisor(String leftSide, String rightside) {
         String switched = SwitchedSides(leftSide, rightSide);
         String switchedleft = GetLeftSide(switched);
-        String switchedrright = GetRightSide(switched);
-        ArrayList<String> ArrayOfswitchedRight = ConvertToArray(switchedrright);
+        String switchedright = GetRightSide(switched);
+        ArrayList<String> ArrayOfswitchedRight = ConvertToArray(switchedright);
         ArrayList<String> ArrayOfswitchedLeft = ConvertToArray(switchedleft);
         String finalval = Evaluate(ArrayOfswitchedLeft, ArrayOfswitchedRight).toString();
         return finalval;
     }
 
     public String SolveForDivisor(String leftSide, boolean flagForDistributor) {
+        String newRight = "";
         String finalAns = "";
-        Fraction divisor = GetDivisor(leftSide);
-        ArrayList<String> right = ConvertToArray(this.rightSide);
-        String newRight = ApplyDivisor(divisor, right);
+        String divisor = GetDivisor(leftSide).toString();
         String newLeft = RemoveDivisor(leftSide);
+        ArrayList<String> right = ConvertToArray(this.rightSide);
+        if(!(leftSide.contains("("))) {
+            if(leftSide.matches(".*[0-9].*")) {
+                newRight = Evaluate(ConvertToArray(newLeft), right).toString();
+                newRight = ApplyDivisor(Fraction.valueOf(divisor), ConvertToArray(newRight));
+            }
+        } else {
+            newRight = ApplyDivisor(Fraction.valueOf(divisor), right);
+        }
+        
         flagForDistributor = CheckForDistributor(newLeft);
         if(flagForDistributor) {
             finalAns = SolveForDistribution(newLeft, newRight);
+        } else {
+            finalAns = newRight;
         }
         return finalAns;
     }
@@ -190,7 +205,7 @@ class LinearEquation {
      */
     public boolean CheckForDivision(String side) {
         boolean flag = false;
-        if(side.contains(")/")) {
+        if(side.contains(")/") || side.contains("x/")) {
             flag = true;
         } else {
             flag = false;
@@ -204,28 +219,53 @@ class LinearEquation {
      * @return
      */
     public Fraction GetDivisor(String side) {
-        int indofbrack = side.indexOf(")");
-        String divisor = side.substring(indofbrack + 2);
+        Fraction val = new Fraction(0, 0, 1);
+        if(side.contains(")")) {
+            int indofbrack = side.indexOf(")");
+            String divisor = side.substring(indofbrack + 2);
 
-        Fraction val = Fraction.valueOf(divisor);
+            val = Fraction.valueOf(divisor);
+        } else if(side.contains("x/")) {
+            int indexOfunknown = side.indexOf("x");
+            if(side.contains(" ")) { 
+                int indexOfSpace = side.indexOf(" ");
+                String divisor = side.substring(indexOfunknown + 2, indexOfSpace);
+
+                val = Fraction.valueOf(divisor);
+            } else {
+                String divisor = side.substring(indexOfunknown + 2);
+
+                val = Fraction.valueOf(divisor);
+            }
+        }
 
         return val;
     }
 
     public String ApplyDivisor(Fraction val, ArrayList<String> rightSide) {
         String finalRight = "";
-        Fraction finalVal = new Fraction(0, 0, 1);
         for(int i = 0; i < rightSide.size(); i++) {
-            finalVal = val.multiply(Fraction.valueOf(rightSide.get(i)));
+            val = val.multiply(Fraction.valueOf(rightSide.get(i)));
         }
-        finalRight = finalVal.toString();
+        finalRight = val.toString();
         return finalRight;
     }
 
     public String RemoveDivisor(String side) {
-        int indofbrack = side.indexOf(")");
-        String divisor = side.substring(indofbrack + 1);
-        String newSide = side.replace(divisor, "");
+        String newSide = "";
+        if(side.contains(")")) {
+            int indofbrack = side.indexOf(")");
+            String divisor = side.substring(indofbrack + 1);
+            newSide = side.replace(divisor, "");
+        } else if(side.contains("x/")) {
+            int indexOfunknown = side.indexOf("x");
+            if(side.contains(" ")) { 
+                int indexOfSpace = side.indexOf(" ");
+                newSide = side.replace(side.substring(indexOfunknown + 1, indexOfSpace), "");
+            } else {
+                newSide = side.replace(side.substring(indexOfunknown + 1), "");
+            }
+        }
         
         return newSide;
     }
@@ -240,8 +280,6 @@ class LinearEquation {
             int indexOfOpenBrack = side.indexOf("(");
             if(side.substring(0, indexOfOpenBrack).matches(frac) || side.substring(0, indexOfOpenBrack).matches(wholeFrac) || side.substring(0, indexOfOpenBrack).isEmpty() || side.substring(0, indexOfOpenBrack).equals("-")) {
                 flag = true;
-            } else {
-                
             }
         }
         return flag;
@@ -342,6 +380,8 @@ class LinearEquation {
     }
 
     public Fraction Evaluate(ArrayList<String> leftside, ArrayList<String> rightside) {
+        String frac = "(((-{0,1}[1-9][0-9]*)|-{0,1}0)/-{0,1}[1-9][0-9]*)x";
+        String wholeFrac = "((-{0,1}[1-9][0-9]*)|-{0,1}0)x";
         Fraction xValue = new Fraction(0, 0, 1);
         ArrayList<String> operators = GetOperators(leftside);
         ArrayList<Fraction> CoeffOfTerms = new ArrayList<>();
@@ -370,7 +410,7 @@ class LinearEquation {
                 xValue = FractionOfRightSide.get(0).add(FractionOfConstants.get(0));
             }
             xValue = xValue.divide(CoeffOfTerms.get(0));
-        } else {
+        } else if(leftside.get(0).matches(frac) || leftside.get(0).matches(wholeFrac)) {
             xValue = FractionOfRightSide.get(0).divide(CoeffOfTerms.get(0));
         }
         return xValue;
