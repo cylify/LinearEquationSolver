@@ -1,17 +1,22 @@
 import java.util.*;
 
 class Quiz {
-    private String question;
-    private String answer;
+    public Quiz() {
+        
+    }
 
-    public Quiz(String choice) {
+    public String GetChoice(String choice) throws IllegalArgumentException {
+        String question = "";
         if(choice.equals("O")) {
-            this.question = OneStepQuestions();
+            question = OneStepQuestions();
         } else if(choice.equals("T")) {
-            this.question = TwoStepQuestions();
+            question = TwoStepQuestions();
         } else if(choice.equals("M")) {
-            this.question = MultiStepQuestions();
+            question = MultiStepQuestions();
+        } else {
+            throw new IllegalArgumentException("Valid choice must be inputted");
         }
+        return question;
     }
 
     public int GetRandomNumber() {
@@ -42,16 +47,24 @@ class Quiz {
 
     public String MultiStepQuestions() {
         String[] multistep = {"%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
-        " %d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
-        " %d = %d/%d", "%d(%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
-        " %d)/%d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
-        " %d/%d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
-        " %d/%d = %d/%d", "%d/x = %d/%d", "%d/%dx + %d/%s = %d/%d", "%d/x + %d/%d = %d/%d"}; 
+                            " %d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+                            " %d = %d/%d", "%d(%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+                            " %d)/%d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+                            " %d/%d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+                            " %d/%d = %d/%d", "%d/x = %d/%d", "%d/%dx + %d/%s = %d/%d", "%d/x + %d/%d = %d/%d"};
 
-        return String.format(multistep[(new Random()).nextInt(multistep.length)],GetRandomNumber(),GetRandomNumber(),GetRandomNumber(),GetRandomNumber());
+        return String.format(multistep[(new Random()).nextInt(multistep.length)],GetRandomNumber(),GetRandomNumber(),GetRandomNumber(),GetRandomNumber(),GetRandomNumber());
     }
 
     public boolean CheckAnswer(String question, String answer) {
-        
+        LinearEquation ans = new LinearEquation(question);
+        String StringOfAns = String.valueOf(ans);
+        boolean flag = false;
+        if(StringOfAns.equals(answer)) {
+            flag = true;
+        } else {
+            flag = false;
+        }
+        return flag;
     }
 }
