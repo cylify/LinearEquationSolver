@@ -28,17 +28,31 @@ class Driver {
         PrintMenu();
         Scanner in = new Scanner(System.in);
         System.out.print("Enter what program you would like to run?: ");
-        String c = in.next();
-        int k = GetChoice(Integer.valueOf(c));
+        String choice = in.next();
+        int choiceVal = GetChoice(Integer.valueOf(choice));
 
-        if(k == 1) {
+        if(choiceVal == 1) {
             in.nextLine();
             System.out.print("Enter an expression: ");
             String expr = in.nextLine();
-            LinearEquation g = new LinearEquation(expr);
-        } else if(k == 2) {
+            LinearEquation eq = new LinearEquation(expr);
+        } else if(choiceVal == 2) {
             in.nextLine();
+            System.out.print("What type of equation would you solve? (O/T/M): ");
+            String type = in.nextLine();
+            Quiz q = new Quiz(type);
+            System.out.print("Solve for the unknown in this expression\nx = ");
+            // in.nextLine();
+            String answer = in.nextLine();
+            boolean flag = Quiz.CheckAnswer(Quiz.question, answer);
+            if(flag) {
+                System.out.println("You have got the question right!");
+            } else {
+                System.out.println("You have got the question wrong :(");
+            }
         }
         in.close();
     }
 }
+
+
