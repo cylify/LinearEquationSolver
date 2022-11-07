@@ -37,7 +37,7 @@ class Driver {
             String expr = in.nextLine();
             LinearEquation g = new LinearEquation(expr);
         } else if(k == 2) {
-            Quiz g = new Quiz();
+            in.nextLine();
         }
         in.close();
     }

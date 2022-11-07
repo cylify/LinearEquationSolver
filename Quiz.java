@@ -1,14 +1,17 @@
 import java.util.*;
 
-
 class Quiz {
     private String question;
     private String answer;
 
-    public Quiz() {
-
-        String n = OneStepQuestions();
-        System.out.println(n);
+    public Quiz(String choice) {
+        if(choice.equals("O")) {
+            this.question = OneStepQuestions();
+        } else if(choice.equals("T")) {
+            this.question = TwoStepQuestions();
+        } else if(choice.equals("M")) {
+            this.question = MultiStepQuestions();
+        }
     }
 
     public int GetRandomNumber() {
@@ -24,46 +27,31 @@ class Quiz {
     }
     
     public String OneStepQuestions() {
-        Random rand = new Random();
-        String finalQuestion = "";
-        int num = GetRandomNumber();
-
-        if(num > 50) {
-            String[] onestep = {"%sx = %s", "x/%s = %s", "x + %s = %s"};
-            int randomQIndex = rand.nextInt(onestep.length);
-            String question = onestep[randomQIndex];
-
-            finalQuestion = String.format(question, GetRandomNumber());
-        } else if(num < 50 && num > 0) {
-            String[] onestep = {"%sx = %s", "x/%s = %s", "x - %s = %s"};
-            int randomQIndex = rand.nextInt(onestep.length);
-            String question = onestep[randomQIndex];
-
-            finalQuestion = String.format(question, GetRandomNumber());
-        }
-
-        return finalQuestion;
+        String[] onestep = {"%dx = %d", "x/%d = %d", "x " + (GetRandomNumber() > 50 ? "+" : "-") + " %d = %d"};
+        return String.format(onestep[(new Random()).nextInt(onestep.length)], GetRandomNumber(), GetRandomNumber());
     }
 
-    public void TwoStepQuestions() {
-        String type_1 = "%sx (\\+-) %s = %s";
-        String type_2 = "x/%s (\\+-) %s = %s";
-        String type_3 = "(x (\\+-) %s)/%s = %s";
-        String type_4 = "%s(x (\\+-) %s) = %s";
-        String type_5 = "%s/x = %s";
+    public String TwoStepQuestions() {
+        String[] twostep = {"%dx " + (GetRandomNumber() > 50 ? "+" : "-") + " %d = %d", 
+                            "x/%d " + (GetRandomNumber() > 50 ? "+" : "-") + " %d = %d",
+                            "(x " + (GetRandomNumber() > 50 ? "+" : "-") + " %d)/%d = %d",
+                            "%d(x " + (GetRandomNumber() > 50 ? "+" : "-") + " %d) = %d",
+                            "%d/x = %d"};
+        return String.format(twostep[(new Random()).nextInt(twostep.length)],GetRandomNumber(), GetRandomNumber(), GetRandomNumber());
     }
 
-    public void MultiStepQuestions() {
-        String type_1 = "%s/%sx (\\+-) %s = %s";
-        String type_2 = "%s/%sx (\\+-) %s = %s/%s";
-        String type_3 = "%s(%sx (\\+-) %s)/%s = %s";
-        String type_4 = "%s/%sx (\\+-) %s/%s = %s";
-        String type_5 = "%s/x = %s/%s";
-        String type_6 = "%s/%sx + %s/%s = %s/%s";
-        String type_7 = "%s/x + %s/%s = %s/%s";
+    public String MultiStepQuestions() {
+        String[] multistep = {"%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+        " %d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+        " %d = %d/%d", "%d(%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+        " %d)/%d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+        " %d/%d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
+        " %d/%d = %d/%d", "%d/x = %d/%d", "%d/%dx + %d/%s = %d/%d", "%d/x + %d/%d = %d/%d"}; 
+
+        return String.format(multistep[(new Random()).nextInt(multistep.length)],GetRandomNumber(),GetRandomNumber(),GetRandomNumber(),GetRandomNumber());
     }
 
-    public static void main(String[] args) {
-        Quiz g = new Quiz();
+    public boolean CheckAnswer(String question, String answer) {
+        
     }
 }

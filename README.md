@@ -1,6 +1,6 @@
 # LinearEquationSolver
 
-Solves linear equations with multiple steps
-Can have one unknown variable 
+Solves linear equations with multiple steps <br />
+Can have one unknown variable\
 Cannot have exponential values
 
