@@ -52,10 +52,12 @@ class LinearEquation {
         String divisor = GetDivisor(leftSide).toString();
         String newLeft = RemoveDivisor(leftSide);
         ArrayList<String> right = ConvertToArray(this.rightSide);
-        if(!(leftSide.contains("("))) {
-            if(leftSide.matches(".*[0-9].*")) {
+        if(!(newLeft.contains("("))) {
+            if(newLeft.matches(".*[1-9].*")) {
                 newRight = Evaluate(ConvertToArray(newLeft), right).toString();
                 newRight = ApplyDivisor(Fraction.valueOf(divisor), ConvertToArray(newRight));
+            } else {
+                newRight = ApplyDivisor(Fraction.valueOf(divisor), right);
             }
         } else {
             newRight = ApplyDivisor(Fraction.valueOf(divisor), right);
