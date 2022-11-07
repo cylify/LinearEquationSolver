@@ -73,7 +73,11 @@ class Quiz {
                             (GetRandomNumber() > 50 ? "" : "-") + "%d/" + (GetRandomNumber() > 50 ? "" : "-") + "%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
                             " " + (GetRandomNumber() > 50 ? "" : "-") + "%d/" + (GetRandomNumber() > 50 ? "" : "-") + "%d = " + (GetRandomNumber() > 50 ? "" : "-") + 
                             "%d", (GetRandomNumber() > 50 ? "" : "-") + "%d/" + (GetRandomNumber() > 50 ? "" : "-") + "%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
-                            " %d/%d = %d/%d", "%d/x = %d/%d", "%d/%dx + %d/%d = %d/%d", "%d/x + %d/%d = %d/%d"};
+                            " " + (GetRandomNumber() > 50 ? "" : "-") + "%d/" + (GetRandomNumber() > 50 ? "" : "-") + "%d = " + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "%d/" + (GetRandomNumber() > 50 ? "" : "-") + "%d",  (GetRandomNumber() > 50 ? "" : "-") + "%d/x = " + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "%d/" + (GetRandomNumber() > 50 ? "" : "-") + "%d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + " %d/%d = %d/%d", 
+                            (GetRandomNumber() > 50 ? "" : "-") + "%d/x " + (GetRandomNumber() > 50 ? "+" : "-") + " " + (GetRandomNumber() > 50 ? "" : "-") + 
+                            "%d/%d = %d/%d"};
 
         return String.format(multistep[(new Random()).nextInt(multistep.length)], GetRandomInt(), GetRandomInt(), GetRandomInt(), GetRandomInt(), GetRandomInt());
     }
