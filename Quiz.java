@@ -1,11 +1,14 @@
 import java.util.*;
 
 class Quiz {
-    public Quiz() {
-        
+    static String question;
+
+    public Quiz(String type) {
+        question = GetQuestion(type);
+        System.out.println(question);
     }
 
-    public String GetChoice(String choice) throws IllegalArgumentException {
+    public String GetQuestion(String choice) throws IllegalArgumentException {
         String question = "";
         if(choice.equals("O")) {
             question = OneStepQuestions();
@@ -19,21 +22,21 @@ class Quiz {
         return question;
     }
 
-    public int GetRandomNumber() {
+    public int GetRandomInt() {
         Random rand = new Random();
-        int num = rand.nextInt(1, 100);
+        int num = rand.nextInt(1, 20);
         return num;
     }
 
-    public int ChanceForNegative() {
+    public int GetRandomNumber() {
         Random rand = new Random();
-        int chance = rand.nextInt(0, 100);
+        int chance = rand.nextInt(1, 100);
         return chance;
     }
     
     public String OneStepQuestions() {
         String[] onestep = {"%dx = %d", "x/%d = %d", "x " + (GetRandomNumber() > 50 ? "+" : "-") + " %d = %d"};
-        return String.format(onestep[(new Random()).nextInt(onestep.length)], GetRandomNumber(), GetRandomNumber());
+        return String.format(onestep[(new Random()).nextInt(onestep.length)], GetRandomInt(), GetRandomInt());
     }
 
     public String TwoStepQuestions() {
@@ -42,7 +45,7 @@ class Quiz {
                             "(x " + (GetRandomNumber() > 50 ? "+" : "-") + " %d)/%d = %d",
                             "%d(x " + (GetRandomNumber() > 50 ? "+" : "-") + " %d) = %d",
                             "%d/x = %d"};
-        return String.format(twostep[(new Random()).nextInt(twostep.length)],GetRandomNumber(), GetRandomNumber(), GetRandomNumber());
+        return String.format(twostep[(new Random()).nextInt(twostep.length)], GetRandomInt(), GetRandomInt(), GetRandomInt());
     }
 
     public String MultiStepQuestions() {
@@ -53,14 +56,13 @@ class Quiz {
                             " %d/%d = %d", "%d/%dx " + (GetRandomNumber() > 50 ? "+" : "-") + 
                             " %d/%d = %d/%d", "%d/x = %d/%d", "%d/%dx + %d/%s = %d/%d", "%d/x + %d/%d = %d/%d"};
 
-        return String.format(multistep[(new Random()).nextInt(multistep.length)],GetRandomNumber(),GetRandomNumber(),GetRandomNumber(),GetRandomNumber(),GetRandomNumber());
+        return String.format(multistep[(new Random()).nextInt(multistep.length)], GetRandomInt(), GetRandomInt(), GetRandomInt(), GetRandomInt(), GetRandomInt());
     }
 
-    public boolean CheckAnswer(String question, String answer) {
+    public static boolean CheckAnswer(String question, String answer) {
         LinearEquation ans = new LinearEquation(question);
-        String StringOfAns = String.valueOf(ans);
         boolean flag = false;
-        if(StringOfAns.equals(answer)) {
+        if(LinearEquation.answer.equals(answer)) {
             flag = true;
         } else {
             flag = false;
