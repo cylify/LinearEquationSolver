@@ -55,12 +55,15 @@ class LinearEquation {
         if(!(newLeft.contains("("))) {
             if(newLeft.matches(".*[1-9].*")) {
                 newRight = Evaluate(ConvertToArray(newLeft), right).toString();
-                newRight = ApplyDivisor(Fraction.valueOf(divisor), ConvertToArray(newRight));
+                newRight = ApplyDivisor(Fraction.valueOf(divisor), ConvertToArray(newRight)).toString();
             } else {
-                newRight = ApplyDivisor(Fraction.valueOf(divisor), right);
+                newRight = ApplyDivisor(Fraction.valueOf(divisor), right).toString();
             }
-        } else {
-            newRight = ApplyDivisor(Fraction.valueOf(divisor), right);
+        } else {            
+            newRight = ApplyDivisor(Fraction.valueOf(divisor), right).toString();
+            if(newRight.length() > 3) {
+                newRight = Unsimplify(Fraction.valueOf(newRight));
+            }
         }
         
         flagForDistributor = CheckForDistributor(newLeft);
@@ -200,6 +203,19 @@ class LinearEquation {
         return flag;
     }
 
+    public String Unsimplify(Fraction val) {
+        int valNum = val.getNum();
+        int valWhole = val.getWhole();
+        int valDen = val.getDen();
+        int sign = getSign(valWhole, valNum, valDen);
+        String finalFrac = "";
+        if(valWhole > 0 && valNum > 0) {
+            valNum = ((valWhole * valDen) + valNum) * sign;
+            finalFrac = String.valueOf(valNum) + "/" + String.valueOf(valDen);
+        }
+        return finalFrac;
+    }
+
     /**
      * 
      * @param side
@@ -244,13 +260,13 @@ class LinearEquation {
         return val;
     }
 
-    public String ApplyDivisor(Fraction val, ArrayList<String> rightSide) {
-        String finalRight = "";
+    public Fraction ApplyDivisor(Fraction val, ArrayList<String> rightSide) {
+        Fraction finalVal = new Fraction(0, 0, 1);
         for(int i = 0; i < rightSide.size(); i++) {
             val = val.multiply(Fraction.valueOf(rightSide.get(i)));
         }
-        finalRight = val.toString();
-        return finalRight;
+        finalVal = val;
+        return finalVal;
     }
 
     public String RemoveDivisor(String side) {
@@ -270,6 +286,24 @@ class LinearEquation {
         }
         
         return newSide;
+    }
+
+    public static int getSign(int whole, int num, int den) {
+        int neg = 0;
+        if (whole < 0) {
+            neg++;
+        }
+        if (num < 0) {
+            neg++;
+        }
+        if (den < 0) {
+            neg++;
+        }
+        if (neg % 2 == 1) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     public boolean CheckForDistributor(String side) {
