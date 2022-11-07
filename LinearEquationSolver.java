@@ -166,25 +166,9 @@ class LinearEquation {
         return operands;
     }
 
-    /**
-     * 
-     * @param side
-     * @return ArrayList<String>
-     */
-    static ArrayList<String> GetOppositeOperators(ArrayList<String> side) {
-        ArrayList<String> operands = new ArrayList<String>();
-        for(int i = 0; i < side.size(); i++) {
-            if(side.get(i).matches("\\+")) {
-                operands.add("-");
-            } else if(side.get(i).matches("-")) {
-                operands.add("+");
-            }
-        }
-        return operands;
-    }
 
     /**
-     * 
+     * Checks for a coefficient
      * @param side
      * @return
      */
