@@ -59,8 +59,8 @@ class Driver {
         if(flag) {
             System.out.println("\u001B[32mYou have got the question right!\033[0m");
         } else {
-            System.out.println("\u001B[31mYou have got the question wrong.\033[0m");
-            System.out.println("\u001b[31mThe correct answer is: " + LinearEquation.xVal);
+            System.out.println("\033[0;31m\033[1mYou have got the question wrong.\033[0m\033[0m");
+            System.out.println("\033[1mThe correct answer is: " + LinearEquation.xVal + "\033[0m");
         }
         in.close();
     }
@@ -69,17 +69,33 @@ class Driver {
         PrintMenu();
         Scanner in = new Scanner(System.in);
         System.out.print("Enter what program you would like to run?: ");
-        String choice = in.next();
-        int choiceVal = GetChoice(Integer.valueOf(choice));
 
-        if(choiceVal == 1) {
-            in.nextLine();
-            System.out.print("Enter an expression: ");
-            runLinearEquationSolver();
-        } else if(choiceVal == 2) {
-            in.nextLine();
-            System.out.print("What type of equation would you solve? (O/T/M): ");
-            runQuiz();
+        while(true) {
+            try {
+                String choice = in.next();
+                int choiceVal = GetChoice(Integer.valueOf(choice));
+                if(choiceVal == 1) {
+                    try {
+                        in.nextLine();
+                        System.out.print("Enter an expression: ");
+                        runLinearEquationSolver();
+                        break;
+                    } catch(IllegalArgumentException e) {
+                        System.out.println("Enter a valid expression.\nExpression: ");
+                    }
+                } else if(choiceVal == 2) {
+                    try {
+                        in.nextLine();
+                        System.out.print("What type of equation would you solve? (O/T/M): ");
+                        runQuiz();
+                        break;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Enter a valid type of equation.");
+                    }
+                }
+            } catch(IllegalArgumentException e) {
+                System.out.print("Enter a valid choice\nProgram number:\n");
+            }
         }
         in.close();
     }
