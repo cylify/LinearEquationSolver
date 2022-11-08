@@ -141,19 +141,43 @@ class Quiz {
      * @param answer
      * @return boolean
      */
-    public static boolean CheckAnswer(String question, String answer) {
+    public static boolean CheckAnswer(String question, String answer) throws IllegalArgumentException {
         LinearEquation ans = new LinearEquation(question);
-        boolean flag = false;
+        boolean correctAns = false;
 
-        // If answer of user is same as actual answer
-        if(LinearEquation.xVal.equals(answer)) {
-            // Answer of user is correct
-            flag = true;
+        boolean validateInput = validateAnswer(answer);
+        if(validateInput) {
+            // If answer of user is same as actual answer
+            if(LinearEquation.xVal.equals(answer)) {
+                // Answer of user is correct
+                correctAns = true;
+            } else {
+                // Otherwise answer of user is wrong
+                correctAns = false;
+            }
         } else {
-            // Otherwise answer of user is wrong
-            flag = false;
+            throw new IllegalArgumentException("Valid answer must be inputted");
         }
         // Return if answer is right or wrong
+        return correctAns;
+    }
+
+    /**
+     * Validate input of user
+     * @param input
+     * @return boolean
+     */
+    public static boolean validateAnswer(String input) {
+        String mixedFrac = "((-{0,1}[1-9][0-9]*)|-{0,1}0) (([1-9][0-9]*)|-{0,1}0)/[1-9][0-9]*";
+        String frac = "((-{0,1}[1-9][0-9]*)|-{0,1}0)/-{0,1}[1-9][0-9]*";
+        String wholeFrac = "(-{0,1}[1-9][0-9]*)|-{0,1}0";
+
+        boolean flag = false;
+
+        // If input matches a fraction, mixed fraction, or whole number then it is a valid input
+        if(input.matches(wholeFrac) || input.matches(frac) || input.matches(mixedFrac)) {
+            flag = true;
+        }
         return flag;
     }
 }
