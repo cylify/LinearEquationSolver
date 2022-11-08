@@ -77,6 +77,10 @@ class InputValidator {
 
     }
 
+    /**
+     * All possible right sides
+     * @return String[]
+     */
     private String[] possibleRightSides() {
         String[] possibleRightSides= {"-?[1-9][0-9]", "-?[1-9][0-9]*/-?[1-9][0-9]*"};
         return possibleRightSides;

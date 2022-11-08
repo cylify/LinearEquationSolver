@@ -709,7 +709,6 @@ class LinearEquation {
         for(int i = 0; i < Constants.size(); i++) {
             FractionOfConstants.add(Fraction.valueOf(Constants.get(i)));
         }
-
         for(int i = 0; i < rightside.size(); i++) {
             FractionOfRightSide.add(Fraction.valueOf(rightside.get(i)));
         }
