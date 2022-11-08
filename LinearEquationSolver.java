@@ -4,7 +4,7 @@ import java.util.stream.*;
 class LinearEquation {
     private String rightSide;
     private String leftSide;
-    static String answer;
+    static String xVal;
 
     public LinearEquation(String expr) throws IllegalArgumentException {
         this.rightSide = GetRightSide(expr);
@@ -17,21 +17,13 @@ class LinearEquation {
 
         if(checkForX) {
             if(flagForXdivisor) {
-                String ans = SolveForXDivisor(leftSide, rightSide);
-                answer = SolveForXDivisor(leftSide, rightSide);
-                System.out.println("x = " + ans);
+                xVal = SolveForXDivisor(leftSide, rightSide);
             } else if(flagForDivisor) {
-                String ans = SolveForDivisor(leftSide, flagForDistributor);
-                answer = SolveForDivisor(leftSide, flagForDistributor);
-                System.out.println("x = " + ans);
+                xVal = SolveForDivisor(leftSide, flagForDistributor);
             } else if(flagForDistributor) {
-                String ans = SolveForDistribution(leftSide, rightSide);
-                answer = SolveForDistribution(leftSide, rightSide);
-                System.out.println("x = " + ans);
+                xVal = SolveForDistribution(leftSide, rightSide);
             } else {
-                String ans = SolveForBase(leftSide, this.rightSide);
-                answer = SolveForBase(leftSide, this.rightSide);
-                System.out.println("x = " + ans);
+                xVal = SolveForBase(leftSide, this.rightSide);
             }
         }
     }
@@ -70,7 +62,13 @@ class LinearEquation {
         if(flagForDistributor) {
             finalAns = SolveForDistribution(newLeft, newRight);
         } else {
-            finalAns = newRight;
+            boolean check = CheckForCoeff(newLeft);
+            if(check) {
+                ArrayList<String> coeff = GetTerms(ConvertToArray(newLeft));
+                finalAns = Fraction.valueOf(newRight).divide(Fraction.valueOf(coeff.get(0))).toString();
+            } else {
+                finalAns = newRight;
+            }
         }
         return finalAns;
     }
@@ -197,7 +195,7 @@ class LinearEquation {
         String frac = "((-{0,1}[1-9][0-9]*)|-{0,1}0)/-{0,1}[1-9][0-9]*";
         String wholeFrac = "(-{0,1}[1-9][0-9]*)|-{0,1}0";
         int indexOfunknown = side.indexOf("x");
-        if(side.substring(0, indexOfunknown).matches(wholeFrac) || side.substring(0, indexOfunknown).matches(frac)) {
+        if(side.substring(0, indexOfunknown).matches(wholeFrac) || side.substring(0, indexOfunknown).matches(frac) || side.substring(0, indexOfunknown).matches("-")) {
             flag = true;            
         }
         return flag;
