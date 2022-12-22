@@ -65,6 +65,9 @@ class Driver {
         in.close();
     }
 
+    // 2x + 4
+
+
     public static void main(String[] args) {
         PrintMenu();
         Scanner in = new Scanner(System.in);
@@ -72,8 +75,8 @@ class Driver {
 
         while(true) {
             try {
-                String choice = in.next();
-                int choiceVal = GetChoice(Integer.valueOf(choice));
+                int choice = in.nextInt();
+                int choiceVal = GetChoice(choice);
                 if(choiceVal == 1) {
                     try {
                         in.nextLine();
@@ -81,7 +84,7 @@ class Driver {
                         runLinearEquationSolver();
                         break;
                     } catch(IllegalArgumentException e) {
-                        System.out.println("Enter a valid expression.\nExpression: ");
+                        System.out.println("Enter a valid expression.\nProgram Choice: ");
                     }
                 } else if(choiceVal == 2) {
                     try {
